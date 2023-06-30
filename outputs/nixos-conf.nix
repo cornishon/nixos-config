@@ -1,6 +1,8 @@
-{ inputs, system, ... }:
-
-let
+{
+  inputs,
+  system,
+  ...
+}: let
   inherit (inputs.nixpkgs.lib) nixosSystem;
 
   lib = inputs.nixpkgs.lib;
@@ -9,12 +11,12 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-in
-
-{
+in {
   asus-tuf = nixosSystem {
     inherit lib pkgs system;
-    specialArgs = { inherit inputs; };
+    specialArgs = {
+      inherit inputs;
+    };
     modules = [
       ../system/configuration.nix
       ../system/machine/asus-tuf
