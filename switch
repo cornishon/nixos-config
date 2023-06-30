@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Shows the output of every command
+set +x
+
+activateHM() {
+  HOME_MANAGER_BACKUP_EXT=bak result/activate
+}
+
+rebuild_home() {
+  nix build .#homeConfigurations.adamz.activationPackage $*
+  activateHM
+}
+
+rebuild_system() {
+  sudo nixos-rebuild switch --flake .#asus-tuf $*
+}
+
+case $1 in
+  "home")
+    shift;
+    rebuild_home;;
+  "system")
+    shift;
+    rebuild_system $*;;
+  "update-fish")
+    shift;
+    fish -c fish_update_completions;;
+  *)
+    echo "expected 'home' 'system' or 'update-fish'";;
+esac
