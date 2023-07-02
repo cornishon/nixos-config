@@ -7,6 +7,10 @@ let
     any-nix-shell # fish support for nix shell
     exa # ls replacement
     fd # find replacement
+    gnomeExtensions.appindicator
+    gnomeExtensions.just-perfection
+    gnomeExtensions.scroll-panel
+    gnomeExtensions.tophat
     iosevka-comfy.comfy # comfy font for the terminal
     killall # kill all processes matching a name
     libnotify # notify-send command

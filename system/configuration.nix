@@ -94,16 +94,7 @@ in {
     isNormalUser = true;
     description = "Adam Zadrożny";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      blackbox-terminal
-      clang
-      firefox
-      gnomeExtensions.just-perfection
-      gnomeExtensions.scroll-panel
-      gnomeExtensions.tophat
-      logiops
-      mold
-    ];
+    packages = with pkgs; [ blackbox-terminal clang firefox logiops mold ];
   };
 
   # Enable automatic login for the user.
