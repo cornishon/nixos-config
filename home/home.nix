@@ -1,17 +1,32 @@
-{...}: let
+{ pkgs, ... }:
+let
   username = "adamz";
   homeDirectory = "/home/${username}";
   configHome = "${homeDirectory}/.config";
-  packages = [];
+  packages = with pkgs; [
+    any-nix-shell # fish support for nix shell
+    exa # ls replacement
+    fd # find replacement
+    iosevka-comfy.comfy # comfy font for the terminal
+    killall # kill all processes matching a name
+    libnotify # notify-send command
+    nixfmt # formatting for nix code
+    playerctl # music player controlle
+    ripgrep # fast grep
+    rustup # for rust development
+    tldr # summary of a man page
+    tree # display files in a tree view
+    zellij # terminal workspace
+  ];
 in {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
+  programs.home-manager.enable = true;
+
+  imports = [ ./programs ];
+
   home = {
     inherit username homeDirectory packages;
 
-    sessionVariables = {
-      EDITOR = "nvim";
-    };
+    sessionVariables = { };
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -28,7 +43,4 @@ in {
     inherit configHome;
     enable = true;
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

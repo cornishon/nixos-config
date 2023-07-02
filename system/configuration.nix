@@ -5,15 +5,11 @@
 { config, pkgs, inputs, ... }:
 
 let
-  customFonts = pkgs.nerdfonts.override {
-    fonts = [ "JetBrainsMono" "Iosevka" ]; 
-  };
-in
+  customFonts =
+    pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" ]; };
 
-{
-  imports = [
-    ./wm/gnome.nix
-  ];
+in {
+  imports = [ ./wm/gnome.nix ];
 
   nix = {
     settings = {
@@ -91,35 +87,23 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.adamz = {
     isNormalUser = true;
     description = "Adam Zadrożny";
     extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.fish;
     packages = with pkgs; [
       blackbox-terminal
       clang
-      exa
-      fd
       firefox
       gnomeExtensions.just-perfection
       gnomeExtensions.scroll-panel
       gnomeExtensions.tophat
-      htop
-      iosevka-comfy.comfy
       logiops
       mold
-      ripgrep
-      rustup
-      starship
-      zellij
     ];
-  };
-
-  programs = {
-    fish.enable = true;
-    neovim.defaultEditor = true;
   };
 
   # Enable automatic login for the user.
@@ -128,13 +112,7 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    file
-    git
-    neovim
-    wget
-  ];
-
+  environment.systemPackages = with pkgs; [ file git neovim wget ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -167,10 +145,10 @@ in
     enable = true;
     plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
     udevmonConfig = ''
-    - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c /etc/dual-function-keys.yaml | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-      DEVICE:
-        EVENTS:
-          EV_KEY: [KEY_CAPSLOCK, KEY_RIGHTSHIFT, KEY_LEFTSHIFT]
+      - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c /etc/dual-function-keys.yaml | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+        DEVICE:
+          EVENTS:
+            EV_KEY: [KEY_CAPSLOCK, KEY_RIGHTSHIFT, KEY_LEFTSHIFT]
     '';
   };
 
@@ -178,8 +156,5 @@ in
     text = builtins.readFile ./dual-function-keys.yaml;
   };
 
-  fonts.fonts = with pkgs; [
-    customFonts
-    font-awesome
-  ];
+  fonts.fonts = with pkgs; [ customFonts font-awesome ];
 }

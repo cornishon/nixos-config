@@ -8,24 +8,23 @@ activateHM() {
 }
 
 rebuild_home() {
-  nix build .#homeConfigurations.adamz.activationPackage $*
-  activateHM
+  nix build .#homeConfigurations.adamz.activationPackage $* && activateHM
 }
 
 rebuild_system() {
   sudo nixos-rebuild switch --flake .#asus-tuf $*
 }
 
-case $1 in
+arg=$1
+shift
+
+case $arg in
   "home")
-    shift;
-    rebuild_home;;
+    rebuild_home $*;;
   "system")
-    shift;
     rebuild_system $*;;
-  "update-fish")
-    shift;
-    fish -c fish_update_completions;;
+  "all")
+    rebuild_system $* && rebuild_home $*;;
   *)
-    echo "expected 'home' 'system' or 'update-fish'";;
+    echo "expected 'home' 'system' or 'all'";;
 esac

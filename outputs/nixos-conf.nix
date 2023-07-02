@@ -1,8 +1,5 @@
-{
-  inputs,
-  system,
-  ...
-}: let
+{ inputs, system, ... }:
+let
   inherit (inputs.nixpkgs.lib) nixosSystem;
 
   lib = inputs.nixpkgs.lib;
@@ -14,12 +11,7 @@
 in {
   asus-tuf = nixosSystem {
     inherit lib pkgs system;
-    specialArgs = {
-      inherit inputs;
-    };
-    modules = [
-      ../system/configuration.nix
-      ../system/machine/asus-tuf
-    ];
+    specialArgs = { inherit inputs; };
+    modules = [ ../system/configuration.nix ../system/machine/asus-tuf ];
   };
 }

@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "asus-tuf";
 
@@ -12,16 +10,22 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   services.asusd = {
-    enable = false;
-    enableUserService = false;
+    enable = true;
+    enableUserService = true;
+    asusdConfig = ''
+      (
+        bat_charge_limit: 80,
+      )
+    '';
   };
+  services.supergfxd.enable = false;
 
   # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-a4f7961c-e4a3-479b-9295-ea1626bc0c43".device = "/dev/disk/by-uuid/a4f7961c-e4a3-479b-9295-ea1626bc0c43";
-  boot.initrd.luks.devices."luks-a4f7961c-e4a3-479b-9295-ea1626bc0c43".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-a4f7961c-e4a3-479b-9295-ea1626bc0c43".device =
+    "/dev/disk/by-uuid/a4f7961c-e4a3-479b-9295-ea1626bc0c43";
+  boot.initrd.luks.devices."luks-a4f7961c-e4a3-479b-9295-ea1626bc0c43".keyFile =
+    "/crypto_keyfile.bin";
 }
