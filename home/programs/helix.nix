@@ -5,11 +5,19 @@
   settings = {
     theme = "autumn_night";
     editor = {
+      color-modes = true;
+      scrolloff = 5;
+      true-color = true;
       idle-timeout = 100;
       line-number = "relative";
       lsp = {
         display-messages = true;
         display-inlay-hints = true;
+      };
+      cursor-shape = {
+        insert = "bar";
+        normal = "block";
+        select = "block";
       };
     };
   };
