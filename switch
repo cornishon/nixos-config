@@ -12,19 +12,16 @@ rebuild_home() {
 }
 
 rebuild_system() {
-  sudo nixos-rebuild switch --flake .#asus-tuf "$*"
+  sudo nixos-rebuild switch --flake .#asus-tuf 
 }
 
-arg=$1
-shift
-
-case $arg in
+case $1 in
   "home")
     rebuild_home;;
   "system")
-    rebuild_system "$*";;
+    rebuild_system;;
   "all")
-    rebuild_system "$*" && rebuild_home "$*";;
+    rebuild_system && rebuild_home;;
   *)
     echo "expected 'home' 'system' or 'all'";;
 esac
