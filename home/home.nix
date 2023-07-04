@@ -12,6 +12,7 @@ let
     gnomeExtensions.scroll-panel
     gnomeExtensions.tophat
     gnomeExtensions.night-theme-switcher
+    gnomeExtensions.power-profile-switcher
     blackbox-terminal # for gnome
     iosevka-comfy.comfy # comfy font for the terminal
     killall # kill all processes matching a name
