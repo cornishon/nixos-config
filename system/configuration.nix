@@ -15,6 +15,9 @@ in {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
+      extra-substituters = [ "https://helix.cachix.org" ];
+      extra-trusted-public-keys =
+        [ "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs=" ];
     };
 
     gc = {
@@ -94,7 +97,7 @@ in {
     isNormalUser = true;
     description = "Adam Zadrożny";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ blackbox-terminal clang firefox logiops mold ];
+    packages = with pkgs; [ firefox logiops ];
   };
 
   # Enable automatic login for the user.

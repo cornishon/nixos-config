@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }: {
+  imports = [ ./helix ];
 
-{
   programs = {
     bat.enable = true;
 
@@ -28,8 +28,6 @@
       fileWidgetCommand = "fd --type file --follow"; # FZF_CTRL_T_COMMAND
     };
 
-    helix = import ./helix.nix;
-
     htop = {
       enable = true;
       settings = {
@@ -42,6 +40,9 @@
 
     lazygit.enable = true;
 
+    #neovim = import ./neovim {inherit pkgs;};
+    nixvim = import ./nixvim { inherit pkgs; };
+
     starship = {
       enable = true;
       enableTransience = true;
@@ -52,6 +53,5 @@
       enableFishIntegration = true;
       options = [ ];
     };
-
   };
 }
