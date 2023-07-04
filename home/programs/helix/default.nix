@@ -89,6 +89,7 @@
     # some other lsp related packages / dev tools
     typst
     shellcheck
+    nodePackages.bash-language-server
     gawk
     # python
     black
