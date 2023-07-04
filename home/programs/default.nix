@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   imports = [ ./helix ];
 
   programs = {
@@ -8,6 +8,9 @@
       enable = true;
       nix-direnv.enable = true;
     };
+
+    # without bash home-manager can't source session variables
+    bash.enable = true;
 
     fish = {
       enable = true;
