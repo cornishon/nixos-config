@@ -40,9 +40,6 @@
 
     lazygit.enable = true;
 
-    #neovim = import ./neovim {inherit pkgs;};
-    nixvim = import ./nixvim { inherit pkgs; };
-
     starship = {
       enable = true;
       enableTransience = true;

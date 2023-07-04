@@ -5,7 +5,7 @@ let
     config.allowUnfree = true;
   };
 
-  imports = [ inputs.nixvim.homeManagerModules.nixvim ../home/home.nix ];
+  imports = [ ../home/home.nix ];
 in {
   adamz = inputs.home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
