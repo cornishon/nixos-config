@@ -5,7 +5,7 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
 
     nixvim = {
-      url = github:pta2002/nixvim;
+      url = "github:pta2002/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -26,13 +26,13 @@
     };
   };
 
-  outputs = inputs: let
-    system = "x86_64-linux";
-  in {
-    homeConfigurations =
-      import ./outputs/home-conf.nix {inherit inputs system;};
+  outputs = inputs:
+    let system = "x86_64-linux";
+    in {
+      homeConfigurations =
+        import ./outputs/home-conf.nix { inherit inputs system; };
 
-    nixosConfigurations =
-      import ./outputs/nixos-conf.nix {inherit inputs system;};
-  };
+      nixosConfigurations =
+        import ./outputs/nixos-conf.nix { inherit inputs system; };
+    };
 }
