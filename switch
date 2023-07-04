@@ -8,7 +8,7 @@ activateHM() {
 }
 
 rebuild_home() {
-  nix build .#homeConfigurations.adamz.activationPackage "$*" && activateHM
+  nix build .#homeConfigurations.adamz.activationPackage && activateHM
 }
 
 rebuild_system() {
@@ -20,7 +20,7 @@ shift
 
 case $arg in
   "home")
-    rebuild_home "$*";;
+    rebuild_home;;
   "system")
     rebuild_system "$*";;
   "all")
