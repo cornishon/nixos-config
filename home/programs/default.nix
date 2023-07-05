@@ -41,6 +41,24 @@
 
     jq.enable = true;
 
+    kitty = {
+      enable = true;
+      environment.EDITOR = "hx";
+      font = {
+        name = "JetBrainsMono NF";
+        size = 12;
+      };
+      settings = {
+        allow_remote_control = true;
+        # include = "current-theme.conf";
+        scrollback_lines = 10000;
+        enable_audio_bell = false;
+        update_check_interval = 0;
+        hide_window_decorations = true;
+        confirm_os_window_close = 0;
+      };
+    };
+
     lazygit.enable = true;
 
     starship = {

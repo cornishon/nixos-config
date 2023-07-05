@@ -6,7 +6,7 @@
     package = inputs.helix.packages.${pkgs.hostPlatform.system}.default;
 
     settings = {
-      theme = "amberwood";
+      theme = "custom";
 
       # Supertab
       keys.supertab = "move_parent_node_end";
