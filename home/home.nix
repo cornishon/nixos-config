@@ -30,6 +30,17 @@ in {
 
   imports = [ ./programs ];
 
+  specialisation = {
+    dark.configuration = {
+      programs.helix.settings.theme = lib.mkForce "darcula-solid";
+      programs.kitty.theme = lib.mkForce "Afterglow";
+    };
+    light.configuration = {
+      programs.helix.settings.theme = lib.mkForce "github_light";
+      programs.kitty.theme = lib.mkForce "Solarized Light";
+    };
+  };
+
   home = {
     inherit username homeDirectory packages;
 
