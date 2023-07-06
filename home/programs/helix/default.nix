@@ -10,11 +10,11 @@
 
       # Supertab
       keys.supertab = "move_parent_node_end";
-      keys.select.tab = "move_parent_node_end";
-      keys.normal.tab = "move_parent_node_end";
+      keys.select.tab = "goto_next_buffer";
+      keys.normal.tab = "goto_next_buffer";
       keys.insert.S-tab = "move_parent_node_start";
-      keys.select.S-tab = "move_parent_node_start";
-      keys.normal.S-tab = "move_parent_node_start";
+      keys.select.S-tab = "goto_previous_buffer";
+      keys.normal.S-tab = "goto_previous_buffer";
 
       keys.normal = {
         space.q = ":bc";
@@ -81,6 +81,7 @@
         }
       ];
 
+      keys.insert.S-tab = "move_parent_node_start";
       language-server.rust-analyzer.config = { check.command = "clippy"; };
     };
   };
@@ -93,12 +94,6 @@
     gawk
     # python
     black
-    # javascript/typescript
-    nodejs
-    nodePackages.jsonlint
-    nodePackages.yarn
-    nodePackages.typescript-language-server
-    vscode-langservers-extracted
     # rust/c/c++
     rustup
     mold

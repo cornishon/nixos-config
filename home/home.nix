@@ -31,7 +31,7 @@ let
 in {
   programs.home-manager.enable = true;
 
-  imports = [ ./programs ];
+  imports = [ ./programs ./dconf.nix ];
 
   specialisation = {
     dark.configuration = {

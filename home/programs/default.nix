@@ -16,7 +16,7 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
-        set -q ZELLIJ || zellij attach --create
+        # set -q ZELLIJ || zellij attach --create
         command -q any-nix-shell && any-nix-shell fish --info-right | source
         command -q zoxide && zoxide init fish | source
       '';
@@ -48,6 +48,7 @@
         name = "JetBrainsMono NF";
         size = 12;
       };
+      theme = "Afterglow";
       settings = {
         allow_remote_control = true;
         # include = "current-theme.conf";
