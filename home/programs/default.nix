@@ -1,5 +1,5 @@
-{ ... }: {
-  imports = [ ./helix ];
+{ pkgs, config, inputs, ... }: {
+  imports = [ ./neovim ./hyprland ./waybar ];
 
   programs = {
     bat.enable = true;
@@ -16,6 +16,7 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
+        fish_hybrid_key_bindings # vi bindings without sacrificing the useful emacs ones
         # set -q ZELLIJ || zellij attach --create
         command -q any-nix-shell && any-nix-shell fish --info-right | source
         command -q zoxide && zoxide init fish | source
@@ -31,11 +32,23 @@
       fileWidgetCommand = "fd --type file --follow"; # FZF_CTRL_T_COMMAND
     };
 
-    htop = {
+    htop = with config.lib.htop.fields; {
       enable = true;
       settings = {
-        sort_direction = true;
-        sort_key = "PERCENT_CPU";
+        sort_key = PERCENT_CPU;
+        show_program_path = 0;
+        fields = [
+          PID
+          USER
+          PRIORITY
+          NICE
+          M_RESIDENT
+          STATE
+          PERCENT_CPU
+          PERCENT_MEM
+          TIME
+          COMM
+        ];
       };
     };
 
@@ -43,15 +56,15 @@
 
     kitty = {
       enable = true;
-      environment.EDITOR = "hx";
+      environment.EDITOR = "nvim";
       font = {
         name = "JetBrainsMono NF";
         size = 12;
       };
-      theme = "Afterglow";
+      theme = "Gruvbox Dark Hard";
       settings = {
         allow_remote_control = true;
-        # include = "current-theme.conf";
+        include = "current-theme.conf";
         scrollback_lines = 10000;
         enable_audio_bell = false;
         update_check_interval = 0;
@@ -64,7 +77,7 @@
 
     starship = {
       enable = true;
-      enableTransience = true;
+      #enableTransience = true;
     };
 
     zoxide = {

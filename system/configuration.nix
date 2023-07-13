@@ -9,15 +9,19 @@ let
     pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" ]; };
 
 in {
-  imports = [ ./wm/gnome.nix ];
+  imports = [
+    #./wm/gnome.nix
+    #./wm/plasma.nix
+  ];
 
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
-      extra-substituters = [ "https://helix.cachix.org" ];
-      extra-trusted-public-keys =
-        [ "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs=" ];
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      ];
     };
 
     gc = {
@@ -70,6 +74,11 @@ in {
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  hardware.bluetooth.enable = true;
+
+  # Needed for gtklock screenlocker
+  security.pam.services.gtklock = { };
+
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -90,19 +99,34 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness"
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness"
+  '';
+
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.adamz = {
     isNormalUser = true;
     description = "Adam Zadrożny";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ firefox logiops ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "input" ];
+    packages = with pkgs; [ firefox brave logiops ];
   };
 
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "adamz";
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.hyprland}/bin/Hyprland";
+        user = "adamz";
+      };
+      default_session = initial_session;
+    };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

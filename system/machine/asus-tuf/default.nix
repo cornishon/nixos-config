@@ -8,17 +8,17 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [ "idle=nowait" ];
+  boot.kernelParams = [ "idle=nomwait" "pci=nomsi" "processor.max_cstate=1" ];
 
-  services.asusd = {
-    enable = true;
-    enableUserService = true;
-    asusdConfig = ''
-      (
-        bat_charge_limit: 80,
-      )
-    '';
-  };
+  #services.asusd = {
+  #  enable = true;
+  #  enableUserService = true;
+  #  asusdConfig = ''
+  #    (
+  #      bat_charge_limit: 80,
+  #    )
+  #  '';
+  #};
   services.supergfxd.enable = false;
   environment.systemPackages = with pkgs; [ zenstates msr kmod microcodeAmd ];
 

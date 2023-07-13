@@ -12,6 +12,10 @@ in {
 
     extraSpecialArgs = { inherit inputs; };
 
-    modules = [{ inherit imports; }];
+    modules = [
+      { inherit imports; }
+      inputs.hyprland.homeManagerModules.default
+      { wayland.windowManager.hyprland.enable = true; }
+    ];
   };
 }

@@ -7,17 +7,23 @@ let
   gnomeExtensions = with pkgs.gnomeExtensions; [
     appindicator
     just-perfection
-    scroll-panel
-    tophat
     night-theme-switcher
     power-profile-switcher
+    switcher
+    resource-monitor
+    rounded-window-corners
+    forge
   ];
 
   myPackages = with pkgs; [
     any-nix-shell # fish support for nix shell
+    blackbox-terminal # terminal for gnome
+    chafa # terminal sixel-powered image viewer
+    gammastep # Screen color temperature manager
+    gnome.dconf-editor # graphical frontend for dconf
+    gvfs # virtual filesystem support library
     exa # ls replacement
     fd # find replacement
-    blackbox-terminal # for gnome
     killall # kill all processes matching a name
     libnotify # notify-send command
     nixfmt # formatting for nix code
@@ -31,18 +37,7 @@ let
 in {
   programs.home-manager.enable = true;
 
-  imports = [ ./programs ./dconf.nix ];
-
-  specialisation = {
-    dark.configuration = {
-      programs.helix.settings.theme = lib.mkForce "darcula-solid";
-      programs.kitty.theme = lib.mkForce "Afterglow";
-    };
-    light.configuration = {
-      programs.helix.settings.theme = lib.mkForce "github_light";
-      programs.kitty.theme = lib.mkForce "Solarized Light";
-    };
-  };
+  imports = [ ./programs ];
 
   home = {
     inherit username homeDirectory;

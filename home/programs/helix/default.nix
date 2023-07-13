@@ -53,21 +53,21 @@
           name = "nix";
           indent = {
             tab-width = 2;
-            unit = " ";
+            unit = "  ";
           };
         }
         {
           name = "typescript";
           indent = {
             tab-width = 4;
-            unit = " ";
+            unit = "    ";
           };
         }
         {
           name = "javascript";
           indent = {
             tab-width = 4;
-            unit = " ";
+            unit = "    ";
           };
         }
         {
@@ -86,21 +86,4 @@
     };
   };
 
-  home.packages = with pkgs; [
-    # some other lsp related packages / dev tools
-    typst
-    shellcheck
-    nodePackages.bash-language-server
-    gawk
-    # python
-    black
-    # rust/c/c++
-    rustup
-    mold
-    lldb
-    clang-tools
-    gcc
-    # nix lsp
-    nil
-  ];
 }
